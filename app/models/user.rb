@@ -18,8 +18,14 @@ class User < ApplicationRecord
     friends_array.compact
   end
 
+  def non_friends
+    friends_array = friendships.map { |friendship| friendship.friend if !friendship.status == 'confirmed' }
+    friends_array + inverse_friendships.map { |friendship| friendship.user if !friendship.status == 'pending' }
+    friends_array.compact
+  end
+
   def pending_friends
-    friendships.map{|friendship| friendship.friend if !friendship.status == 'confirmed'}.compact
+    friendships.map{|friendship| friendship.friend if friendship.status == 'confirmed'}.compact
   end
 
   def friend_requests
@@ -29,6 +35,28 @@ class User < ApplicationRecord
   def confirm_friend(user)
     friendship = inverse_friendships.find{|friendship| friendship.user == user}
     friendship.status = 'confirmed'
+    friendship.save
+  end
+
+  def reject_friend(user)
+    friendship = inverse_friendships.find { |friendship| friendship.user == user }
+    friendship.status = 'nul'
+    friendship.save
+  end
+
+  def remove_friend(user)
+    reject_friend(user)
+  end
+
+  def send_friend_request(user)
+    friendship = inverse_friendships.find { |friendship| friendship.user == user }
+    friendship.status = 'pending'
+    friendship.save
+  end
+
+  def get_friend_request(user)
+    friendship = inverse_friendships.find { |friendship| friendship.user == user }
+    friendship.status = 'to_confirm'
     friendship.save
   end
 
