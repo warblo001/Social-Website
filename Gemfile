@@ -1,5 +1,3 @@
-# rubocop:disable  Bundler/DuplicatedGem
-# rubocop:disable  Layout/TrailingEmptyLines
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
@@ -40,6 +38,8 @@ group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'database_cleaner'
   gem 'rspec-rails'
+  gem "capybara"
+  gem "selenium-webdriver"
 end
 group :test do
   # Adds support for Capybara system testing and selenium driver
@@ -48,6 +48,7 @@ group :test do
   # Easy installation and use of web drivers to run system tests with browsers
   gem 'webdrivers'
 end
+
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   gem 'listen', '>= 3.0.5', '< 3.2'
@@ -59,5 +60,3 @@ group :development do
 end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
-# rubocop:enable  Bundler/DuplicatedGem
-# rubocop:enable  Layout/TrailingEmptyLines
