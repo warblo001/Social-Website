@@ -1,5 +1,5 @@
 # rubocop:disable Lint/Void
-module UserHelper
+module UsersHelper
   def friends
     friends_array = friendships.map { |fship| fship.friend if fship.confirmed }
     friends_array + inverse_friendships.map { |fship| fship.user if fship.confirmed }
