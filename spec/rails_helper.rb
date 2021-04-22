@@ -20,4 +20,3 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
 end
 
-Capybara.default_driver = :selenium_chrome

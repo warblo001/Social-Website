@@ -1,3 +1,4 @@
+# rubocop:disable Metrics/BlockLength
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
@@ -21,7 +22,7 @@ RSpec.describe User, type: :model do
       expect(post.valid?).to eq(false)
     end
     it 'sucessfully creates a new Comment from a user' do
-      user = User.new(id: 1, name: 'username', email: 'username@gmail.com', password: 'password')
+      user = User.new(id: 10, name: 'username', email: 'username@gmail.com', password: 'password')
       user.save
       post = user.posts.create(content: 'Some specific content')
       comment = user.comments.build(content: 'Some specific comment', post_id: post.id)
@@ -34,7 +35,7 @@ RSpec.describe User, type: :model do
       expect(comment.valid?).to eq(false)
     end
     it 'sucessfully creates a new Like from a user' do
-      user = User.new(id: 1, name: 'username', email: 'username@gmail.com', password: 'password')
+      user = User.new(id: 10, name: 'username', email: 'username@gmail.com', password: 'password')
       user.save
       post = user.posts.create(content: 'Some specific content')
       like = user.likes.build(post_id: post.id)
@@ -47,3 +48,4 @@ RSpec.describe User, type: :model do
     end
   end
 end
+# rubocop:enable Metrics/BlockLength
