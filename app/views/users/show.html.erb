@@ -1,7 +1,7 @@
 <section class="user-section">
   <h2><%= "Name: #{@user.name}" %></h2>
   <% if current_user.friend?(@user)%>
-      <%= link_to 'Remove as a friend', user_approve_friendships_path(@user),method: :delete %>
+      <%= link_to 'Remove as a friend', friendship_path(@user),method: :delete %>
   <% elsif current_user.pending_friends.include?(@user) %>
     <p> Waiting friend approval <%= @user.name%> </p>
   <%else%>
@@ -25,8 +25,8 @@
       <h3>Pending friend's requests</h3>
       <% @friend_pen.each do |fri_p|%>
         <%= fri_p.name%>
-        <%= link_to 'Decline', friendship_path(fri_p),method: :delete%>
-        <%= link_to 'Approve',  user_approve_friendships_path(fri_p)%>
+        <%= link_to 'Decline', friendship_path(@user),method: :delete%>
+        <%= link_to 'Approve',  user_approve_friendships_path(@user)%>
       <% end %>
     </ul>
   </article>
