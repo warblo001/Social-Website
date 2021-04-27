@@ -1,32 +1,30 @@
 <section class="user-section">
   <h2><%= "Name: #{@user.name}" %></h2>
   <% if current_user.friend?(@user)%>
-      <%= link_to 'Remove as a friend', friendship_path(@user),method: :delete %>
+      <%= link_to 'Remove as a friend', friendship_path(user),method: :delete %>
   <% elsif current_user.pending_friends.include?(@user) %>
-    <p> Waiting friend approval <%= @user.name%> </p>
+    <p> Waiting friend approval from <%= @user.name%> </p>
   <%else%>
     <%= link_to 'Add as a friend',  user_friendships_path(@user), method: :post, class: 'profile-link' %>
   <%end%>
   <article class="timeline">
     <h3>Recent posts:</h3>
     <ul class="posts">
-      <%= render @posts %>
-
+    <%= render @posts %>
+      
     <h3>Friend's list</h3>
     <% @friends.each { |fri| %>
       <%= fri.name %>
     <% } %>
       <h3>Friend's request list</h3>
-
-      <% @friend_req.each do |fri_r|%>
-      <%= fri_r.name %>
+      <% @friend_req.each do |fri_req|%>
+      <%= fri_req.name %>
+      <%= link_to 'Decline', friendship_path(fri_req),method: :delete%>
+      <%= link_to 'Approve',  user_approve_friendships_path(fri_req)%>
       <% end %>
-
       <h3>Pending friend's requests</h3>
-      <% @friend_pen.each do |fri_p|%>
-        <%= fri_p.name%>
-        <%= link_to 'Decline', friendship_path(@user),method: :delete%>
-        <%= link_to 'Approve',  user_approve_friendships_path(@user)%>
+      <% @friend_pen.each do |fri_pen|%>
+        <%= fri_pen.name%>
       <% end %>
     </ul>
   </article>
