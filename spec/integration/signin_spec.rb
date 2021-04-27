@@ -1,24 +1,22 @@
 require 'rails_helper'
 
-RSpec.describe User, type: :model do
-  context 'Creating a user and associated object' do
-    it 'sucessfully creates a new user' do
-      user = User.new(id: 1, name: 'username', email: 'username@gmail.com', password: 'password')
-      expect(user.valid?).to eq(true)
+RSpec.describe 'Sign in page', type: :system do
+  describe 'index page' do
+    it 'shows sign in ' do
+      visit users_path
+      expect(page).to have_content('Sign in')
     end
-    it 'fails to create a new user' do
-      user = User.new(name: 'Username')
-      expect(user.valid?).to eq(false)
+    it 'shows Email ' do
+      visit users_path
+      expect(page).to have_content('Email')
     end
-    it 'sucessfully creates a new Post from a user' do
-      user = User.new(id: 1, name: 'username', email: 'username@gmail.com', password: 'password')
-      post = user.posts.build(content: 'Some specific content')
-      expect(post.valid?).to eq(true)
+    it 'shows Password ' do
+      visit users_path
+      expect(page).to have_content('Password')
     end
-    it 'Does not creates a new Post from a user' do
-      user = User.new(id: 1, name: 'username', email: 'username@gmail.com', password: 'password')
-      post = user.posts.build
-      expect(post.valid?).to eq(false)
+    it 'shows Sign up ' do
+      visit users_path
+      expect(page).to have_content('Sign up')
     end
   end
 end
