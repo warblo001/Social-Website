@@ -16,6 +16,9 @@ class FriendshipsController < ApplicationController
     @user = User.find(params[:id])
     @friendship = current_user.inverse_friendships.find { |friendship| friendship.user == @user }
     @friendship.destroy
+    @friendship = @user.inverse_friendships.find { |friendship| friendship.user == current_user }
+    puts "\n\n\n #{@friendship}\n\n\n"
+    @friendship.destroy unless @friendship.blank?
     redirect_to users_path, notice: "Removed #{@user.name} as friend"
   end
 
